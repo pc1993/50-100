@@ -1,0 +1,84 @@
+不知道为什么不行，但是算法没错。
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int m = matrix.size();
+        int n=0;
+        if(m!=0)
+        {
+            n = matrix[0].size();
+        }
+        else
+        {
+            return {};
+        }
+        int i=0;
+        int up=0;
+        int down=m-1;
+        int left=0;
+        int right=n-1;
+        vector<int> res(m*n);
+        while(i<=m*n-1)
+        {
+            for(int col=left;col<=right;++col)
+            {
+                res[i]=matrix[up][col];
+                i++;
+            }
+            up++;
+            for(int row=up;row<=down;++row)
+            {
+                res[i]=matrix[row][right];
+                i++;
+            }
+            right--;
+            for(int col=right;col>=left;--col)
+            {
+                res[i]=matrix[down][col];
+                i++;
+            }
+            down--;
+            for(int row=down;down>=up;--row)
+            {
+                res[i]=matrix[row][left];
+                i++;
+            }
+            left++;
+        }
+        return res;
+    }
+};
+
+
+
+
+ jianchao.li.fighter 
+Reputation:  5,246
+The idea is just to add the elements in the spiral order. First the up-most row (u), then the right-most column (r), then the down-most row (d), and finally the left-most column (l). After finishing a row or a column, update the corresponding variable to continue the process.
+
+The code is as follows.
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        if (matrix.empty()) return {};
+        int m = matrix.size(), n = matrix[0].size();
+        vector<int> spiral(m * n);
+        int u = 0, d = m - 1, l = 0, r = n - 1, k = 0;
+        while (true) {
+            // up
+            for (int col = l; col <= r; col++) spiral[k++] = matrix[u][col];
+            if (++u > d) break;
+            // right
+            for (int row = u; row <= d; row++) spiral[k++] = matrix[row][r];
+            if (--r < l) break;
+            // down
+            for (int col = r; col >= l; col--) spiral[k++] = matrix[d][col];
+            if (--d < u) break;
+            // left
+            for (int row = d; row >= u; row--) spiral[k++] = matrix[row][l];
+            if (++l > r) break;
+        }
+        return spiral;
+    }
+};
