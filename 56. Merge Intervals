@@ -1,3 +1,6 @@
+箭头（->）：左边必须为指针；
+点号（.）：左边必须为实体。
+
 sort(first_pointer,first_pointer+n,cmp)
 cmp是一个比较函数
 //情况一：数组排列
