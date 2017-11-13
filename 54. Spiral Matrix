@@ -25,25 +25,25 @@ public:
                 res[i]=matrix[up][col];
                 i++;
             }
-            up++;
+            if(++up>down) break;
             for(int row=up;row<=down;++row)
             {
                 res[i]=matrix[row][right];
                 i++;
             }
-            right--;
+            if(--right<left) break;
             for(int col=right;col>=left;--col)
             {
                 res[i]=matrix[down][col];
                 i++;
             }
-            down--;
+            if(--down<up) break;;
             for(int row=down;down>=up;--row)
             {
                 res[i]=matrix[row][left];
                 i++;
             }
-            left++;
+            if(++left>right) break;
         }
         return res;
     }
