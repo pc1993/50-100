@@ -1,0 +1,58 @@
+sort(first_pointer,first_pointer+n,cmp)
+cmp是一个比较函数
+//情况一：数组排列
+int A[100];
+bool cmp1(int a,int b)//int为数组数据类型
+{
+    return a>b;//降序排列
+    //return a<b;//默认的升序排列
+}
+sort(A,A+100,cmp1);
+
+//情况二：结构体排序
+Student Stu[100];
+bool cmp2(Student a,Student b)                               //struct Student{int id;}
+{
+    return a.id>b.id;//按照学号降序排列
+    //return a.id<b.id;//按照学号升序排列
+}
+sort(Stu,Stu+100,cmp2);
+
+
+
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+class Solution {
+public:
+    vector<Interval> merge(vector<Interval>& intervals) {
+        if(intervals.empty())
+        {
+            return {};
+        }
+        vector<Interval> res;
+        int n=intervals.size();
+        sort(intervals.begin(),intervals.end(),[](Interval a, Interval b){return a.start<b.start;});//按照结构体中，start升序排列
+                                                                                                      换成>就是降序
+        res.push_back(intervals[0]);
+        for(int i=1;i<n;++i)
+        {
+            if(res.back().end<intervals[i].start)
+            {
+                res.push_back(intervals[i]);
+            }
+            else
+            {
+               res.back().end=max(res.back().end,intervals[i].end);
+            }
+        }
+        return res;
+        
+    }
+};
