@@ -39,7 +39,10 @@ public:
         vector<Interval> res;
         int n=intervals.size();
         sort(intervals.begin(),intervals.end(),[](Interval a, Interval b){return a.start<b.start;});//按照结构体中，start升序排列
-                                                                                                      换成>就是降序
+                                                可以替换成comp                                         换成>就是降序
+                                                                                                      static bool comp(const Interval& a, const Interval& b){
+                                                                                                      return a.start < b.start;
+                                                                                                      }
         res.push_back(intervals[0]);
         for(int i=1;i<n;++i)
         {
