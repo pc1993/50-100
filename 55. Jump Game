@@ -1,0 +1,29 @@
+拟照最短路径写的代码,12ms
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int n=nums.size();
+        int sum=0;
+        int maxtre=0;
+        int i=0;
+        while(true)
+        {
+            for(;i<=maxtre;++i)
+            {
+                sum=max(sum,nums[i]+i);
+                if(sum>=n-1)
+                {
+                    return true;
+                    break;
+                }
+            }
+            if(sum<=maxtre)
+            {
+                return false;
+                break;
+            }
+            maxtre=sum;
+        }
+        return false;
+    }
+};
