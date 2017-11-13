@@ -1,4 +1,3 @@
-不知道为什么不行，但是算法没错。
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
@@ -38,7 +37,7 @@ public:
                 i++;
             }
             if(--down<up) break;;
-            for(int row=down;down>=up;--row)
+            for(int row=down;row>=up;--row)
             {
                 res[i]=matrix[row][left];
                 i++;
