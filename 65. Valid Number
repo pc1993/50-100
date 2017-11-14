@@ -26,12 +26,8 @@ public:
             num=true;
             i++;
         }
-        if(num&&i<s.size()&&s[i]=='e'||s[i]=='E')
+        if(num&&i<s.size()&&(s[i]=='e'||s[i]=='E'))
         {
-            if(num==false)
-            {
-                return false;
-            }
             i++;
             num=false;
             if((s[i]=='+'||s[i]=='-')&&i<n)
