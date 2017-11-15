@@ -1,0 +1,67 @@
+首先，输出以是否为末行分为两类；
+对于非末行单词组，又以其包含的单词个数分为两类，一是单个单词，二是多个单词；
+第一步，讨论非末行单词组合： 
+（1）若该组只包含一个单词，规定其左对齐，不足指定长度以空格填充； 
+（2）若该组包含count个单词，那么它有（count-1）个间隔，每个间隔放置一个空格；
+此时，求出不足指定长度需要的额外空格数目，extraSpace，每个单词间隔填充extra/（count-1）个空格；
+此时，若不整除那么前extra%(count-1)个间隔再次填充一个空格；
+第二步，讨论末行单词组合： 
+（1）若只有一个单词，左对齐，不足指定长度以空格填充； 
+（2）若该组有count个单词，那么它有（count-1）个间隔，每个间隔放置一个空格；不足指定长度，末尾填充；
+class Solution {
+public:
+    vector<string> fullJustify(vector<string>& words, int maxWidth) {
+        int n=words.size();
+        vector<string> res;
+        vector<string> vs;        
+        int len=0;
+        string str;
+        for(int i=0;i<n;++i)
+        {
+            if((len+words[i].size()+vs.size())<=maxWidth)
+            {
+                vs.push_back(words[i]);
+                len+=words[i].size();
+            }
+            else
+            {
+                if(vs.size()==1)
+                {
+                    str=vs[0];
+                    str.append(maxWidth-str.size(),' ');
+                    res.push_back(str);
+                }
+                else if(vs.size()>1)
+                {
+                    int space=(maxWidth-len)/(vs.size()-1);
+                    int add=(maxWidth-len)%(vs.size()-1);
+                    str=vs[0];
+                    for(int j=1;j<vs.size();++j)
+                    {
+                        if(j<=add)
+                        {
+                            str.append(space+1,' ');
+                        }
+                        else
+                        {
+                            str.append(space,' ');
+                        }
+                        str+=vs[j];
+                    }
+                    res.push_back(str);
+                }
+                vs.clear();
+                vs.push_back(words[i]);
+                len=words[i].size();
+            }
+        }
+        str=vs[0];
+        for(int i=1;i<vs.size();++i)
+        {
+            str+=' '+vs[i];
+        }
+        str.append(maxWidth-str.size(),' ');
+        res.push_back(str);
+        return res;
+    }
+};
