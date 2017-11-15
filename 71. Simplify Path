@@ -1,0 +1,32 @@
+getline(目标，存入，截止点or元素)
+"."表示当前目录下的子目录，".."表示返回上一级目录，"..."的话保留
+每一级目录前面都有一个斜杠，我可以首先对斜杠进行分割,4种情况：正常目录名称，空字符，".",".."。对于“.”和空字符我们忽略它，
+对于正常的目录名称我们直接压入栈，对于"..",我们把栈顶元素出栈。通过这些处理之后，如果栈为空我们就返回根目录，
+如果栈不为空我们就逐个出栈并在每个元素前面加一个斜杠，最先出的位于路径的最后面。
+class Solution {
+public:
+    string simplifyPath(string path) {
+        vector<string> st;
+        vector<string> nodes;
+        string result;
+        split(path, '/', nodes);
+        for(auto node : nodes) {
+            //empty or only '.' path no change
+            if(node == "" || node == ".")  continue;
+            //go back to the upper directory
+            if(node == ".." && !st.empty())  st.pop_back();
+            //push back the current directory
+            else if(node != "..")  st.push_back(node);
+        }
+        for(auto it : st) result += "/" + it;
+        return result.empty() ? "/" : result;
+    }
+    
+    void split(string s, char delim, vector<string>& nodes) {
+        string temp;
+        stringstream ss(s);
+        while(getline(ss, temp, delim)) {
+            nodes.push_back(temp);
+        }
+    }
+};
