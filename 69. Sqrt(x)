@@ -1,0 +1,34 @@
+牛顿迭代法以及二分法
+x(n+1)=x(n)-f(x(n))/f'(x(n))
+float SqrtByBisection(float n) //用二分法 
+{ 
+	if(n<0) //小于0的按照你需要的处理 
+		return n; 
+	float mid,last; 
+	float low,up; 
+	low=0,up=n; 
+	mid=(low+up)/2; 
+	do
+	{
+		if(mid*mid>n)
+			up=mid; 
+		else 
+			low=mid;
+		last=mid;
+		mid=(up+low)/2; 
+	}while(abs(mid-last) > eps);//精度控制
+	return mid; 
+} 
+
+
+float SqrtByNewton(float x)
+{
+	float val = x;//最终
+	float last;//保存上一个计算的值
+	do
+	{
+		last = val;
+		val =(val + x/val) / 2;
+	}while(abs(val-last) > eps);
+	return val;
+}
