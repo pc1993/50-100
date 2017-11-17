@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector<int> tmp;
+        int n=nums.size();
+        for(int k=0;k<=n;++k)
+        {
+            combine(nums,tmp,res,0,0,k,n);
+        }
+        return res;
+    }
+    void combine(vector<int>& nums,vector<int>& tmp,vector<vector<int>>& res,int first,int num,int k,int n)
+    {
+        if(num==k)
+        {
+            res.push_back(tmp);
+            return;
+        }
+        for(int i=first;i<n;++i)
+        {
+            tmp.push_back(nums[i]);
+            combine(nums,tmp,res,i+1,num+1,k,n);
+            tmp.pop_back();
+        }
+    }
+};
