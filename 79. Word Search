@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        int n=board.size();
+        int m=board[0].size();
+        for(int i=0;i<n;++i)
+        {
+            for(int j=0;j<m;++j)
+            {
+                if(found(board,word,i,j))
+                    return true;
+            }
+        }
+        return false;
+    }
+    bool found(vector<vector<char>>& board,string &word,int i,int j)
+    {
+        if(word.size()==0)
+            return true;
+        if(i<0||i>=board.size()||j<0||j>=board[0].size()||board[i][j]!=word[0])
+            return false;
+        char c=board[i][j];
+        board[i][j]='*';
+        string s=word.substr(1);                     //从（n）n位开始；（4,5）从4开始读取5个字符
+        bool res=(found(board,s,i-1,j)||found(board,s,i+1,j)||found(board,s,i,j-1)||found(board,s,i,j+1));
+        board[i][j]=c;
+        return res; 
+    }
+};
