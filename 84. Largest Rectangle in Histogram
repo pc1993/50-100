@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        heights.push_back(0);
+        int n=heights.size();
+        int res=0;
+        stack<int> skt;
+        for(int i=0;i<n;)
+        {
+            if(skt.empty()||heights[i]>=heights[skt.top()])
+            {
+                skt.push(i++);
+            }
+            else
+            {
+                int h=skt.top();
+                skt.pop();
+                res=max(res,heights[h]*(skt.empty()?i:i-skt.top()-1));
+            }
+        }
+        return res;
+    }
+};
