@@ -1,0 +1,28 @@
+l代表n-2时刻，r代表n-1时刻，如果s[i]==0，那么这一位置的数量不变，因此r=0，res=l
+如果满足10-26之间，那么这一时刻的可能性为l+r
+都不满足，那么这一时刻的可能性就等于上一时刻，r=r，l=r
+class Solution {
+public:
+    int numDecodings(string s) {
+        int n=s.size();
+        int l=1;
+        int r=1;
+        if(n==0||s[0]=='0')
+            return 0;
+        for(int i=1;i<n;++i)
+        {
+            if(s[i]=='0')
+                r=0;
+            if(s[i-1]=='1'||(s[i-1]=='2'&&s[i]<='6'))
+            {
+                r=l+r;
+                l=r-l;
+            }
+            else
+            {
+                l=r;
+            }
+        }
+        return r;
+    }
+};
