@@ -20,7 +20,7 @@ public:
         }
         for(int i=first;i<n;++i)
         {
-            if(i==first||nums[i]!=nums[i-1])
+            if(i==first||nums[i]!=nums[i-1]) //||运算，如果第一个条件成立，那么不判断第二个条件
             {
                 tmp.push_back(nums[i]);
                 combine(nums,tmp,res,i+1,num+1,k,n);
