@@ -1,0 +1,69 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        findval(res,root);
+        return res;
+    }
+    void findval(vector<int>& res,TreeNode* root)
+    {
+        if(root==0) return;
+        findval(res,root->left);
+        res.push_back(root->val);
+        findval(res,root->right);
+    }
+};
+
+vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> nodes;
+    stack<TreeNode*> toVisit;
+    TreeNode* curNode = root;
+    while (curNode || !toVisit.empty()) {
+        if (curNode) {
+            toVisit.push(curNode);
+            curNode = curNode -> left;
+        }
+        else {
+            curNode = toVisit.top();
+            toVisit.pop();
+            nodes.push_back(curNode -> val);
+            curNode = curNode -> right;
+        }
+    }
+    return nodes;
+}
+
+vector<int> inorderTraversal(TreeNode* root) {
+    TreeNode* curNode = root;
+    vector<int> nodes;
+    while (curNode) {
+        if (curNode -> left) {
+            TreeNode* predecessor = curNode -> left;
+            while (predecessor -> right && predecessor -> right != curNode)
+                predecessor = predecessor -> right;
+            if (!(predecessor -> right)) {
+                predecessor -> right = curNode;
+                curNode = curNode -> left;
+            }
+            else {
+                predecessor -> right = NULL;
+                nodes.push_back(curNode -> val);
+                curNode = curNode -> right;
+            }
+        }
+        else {
+            nodes.push_back(curNode -> val);
+            curNode = curNode -> right;
+        }
+    }
+    return nodes;
+}
