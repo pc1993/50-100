@@ -1,0 +1,39 @@
+The idea is to have a recursive function buildIP to generate an IP string with "num" numbers using the substring [start, npos] of s. 
+First it checks the substring has proper number of digits (>=num && <=3*num). 
+Also it checks if the substring starts with '0' and has some extra digits.
+If so, it is not a valid case, so abandon it. Otherwise, if it is the last number, then check if it is no larger than 255 and if so, 
+add to the resulting vector. If it is not the last number, recursively call itself to build the rest of the number sequence. 
+For the current number, 
+it can only be 1, 2, or 3 digits. Again, remember to check if it starts with '0' and is no larger than 255.
+class Solution {
+public:
+    vector<string> restoreIpAddresses(string s) {
+        int len=s.size();
+        vector<string> res;
+        string store;
+        findIp(s,store,res,0,4);
+        return res;
+    }
+    void findIp(string s,string store,vector<string>& res,int start,int count)
+    {
+        int num=s.size()-start;
+        if(num<count||num>3*count) return;
+        if(count==1)
+        {
+            if(num==1||s[start]!='0'&&atoi(s.substr(start).c_str())<=255)
+                res.push_back(store+s.substr(start));
+        }
+        else
+        {
+            findIp(s,store+s.substr(start,1)+".",res,start+1,count-1);
+            if(s[start]!='0')
+            {
+                findIp(s,store+s.substr(start,2)+".",res,start+2,count-1);
+                if(atoi(s.substr(start,3).c_str())<=255)
+                {
+                    findIp(s,store+s.substr(start,3)+".",res,start+3,count-1);
+                }
+            }
+        }
+    }
+};
