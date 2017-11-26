@@ -1,3 +1,4 @@
+递归法
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -22,7 +23,9 @@ public:
         findval(res,root->right);
     }
 };
-
+迭代法
+在迭代方法中，从根节点开始找二叉树的最左节点，将走过的节点保存在一个栈中，找到最左节点后访问，
+对于每个节点来说，它都是以自己为根的子树的根节点，访问完之后就可以转到右儿子上了
 vector<int> inorderTraversal(TreeNode* root) {
     vector<int> nodes;
     stack<TreeNode*> toVisit;
@@ -41,7 +44,7 @@ vector<int> inorderTraversal(TreeNode* root) {
     }
     return nodes;
 }
-
+3、Morris法
 vector<int> inorderTraversal(TreeNode* root) {
     TreeNode* curNode = root;
     vector<int> nodes;
