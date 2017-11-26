@@ -1,4 +1,5 @@
-DP解法
+DP解法感悟，一开始的二维矩阵，其实可以简化成，一个2*n的矩阵，其实只用到了当前元素的上一行上一列的元素
+进一步优化，可以用一个一维矩阵来代替，因为上一个元素代表前一列元素，当前值代表上一行的值，这样迭代更新数值就可以了
 class Solution {
 public:
     bool isInterleave(string s1, string s2, string s3) {
